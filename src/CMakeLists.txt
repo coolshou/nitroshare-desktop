@@ -274,7 +274,13 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
             RENAME nitroshare.py
         )
     endforeach()
-
+    #install Python extensions for pcmanfm-qt file managers
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/dist/SendWithNitroShare.desktop"
+        DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/lxqt/file-manager/actions/"
+    )
+    install(PROGRAMS "${CMAKE_CURRENT_SOURCE_DIR}/dist/NitroShare-send"
+        DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    )
     # Install service files for the Dolphin file manager
     set(KDE_SERVICE_INSTALL_PATH "${CMAKE_INSTALL_DATAROOTDIR}/kservices5"
         CACHE PATH "Path for installation of KDE services"
