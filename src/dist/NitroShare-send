@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+#import argparse
+from json import loads
+from os import path
+
+#from urllib import url2pathname
+#python3
+from urllib.request import url2pathname
+#from urlparse import urlparse
+#python3
+from urllib.parse import urlparse
+
+#import gi
+#gi.require_version('Gtk', '3.0')
+#gi.require_version('Caja', '3.0')
+
+#from gi.repository import Caja, GObject, Gtk
+from PyQt5.QtWidgets import (QMessageBox)
+from requests import ConnectionError, post
+
+
+#class NitroShareMenu(GObject.GObject, Caja.MenuProvider):
+class NitroShareMenu():
+    """
+    Add a menu item "Send with NitroShare".
+    """
+
+    _LOCALFILE = path.join(path.expanduser('~'), '.NitroShare')
+    def __init__(self):
+        self.port = 36639
+        self.token=""
+        try:
+            with open(self._LOCALFILE, 'r') as f:
+                d = loads(f.read())
+            self.port = d['port']
+            self.token = d['token']
+        except (IOError, KeyError):
+            #item.set_property('sensitive', False)
+            QMessageBox.warning(self, "ERROR!", "Unable to get NitroShare setting." ,
+                                QMessageBox.Ok)
+
+    def send_files(self, files):
+        try:
+            post(
+                url='http://127.0.0.1:{}/sendItems'.format(self.port),
+                json={'items': files},
+                headers={'X-Auth-Token': self.token},
+            )
+        except ConnectionError as e:
+            QMessageBox.warning(self, "ERROR!", "Unable to communicate with NitroShare." ,
+                                QMessageBox.Ok)
+
+    def send_items(self, menu, window, files, port, token):
+        """
+        Attempt to send the files using NitroShare.
+        """
+        try:
+            post(
+                url='http://127.0.0.1:{}/sendItems'.format(port),
+                json={'items': files},
+                headers={'X-Auth-Token': token},
+            )
+        except ConnectionError as e:
+            QMessageBox.warning(self, "ERROR!", "Unable to communicate with NitroShare." ,
+                                QMessageBox.Ok)
+            '''
+            dialog = Gtk.MessageDialog(
+                window,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.ERROR,
+                Gtk.ButtonsType.OK,
+                "Unable to communicate with NitroShare.",
+            )
+            dialog.format_secondary_text(str(e))
+            dialog.run()
+            dialog.destroy()
+            '''
+    def get_file_items(self, window, files):
+        """
+        Return a menu item if some files were selected.
+        """
+        if not len(files):
+            return
+        item = Caja.MenuItem(
+            name='NitroShare::SendFiles',
+            label="Send with NitroShare...",
+        )
+        try:
+            with open(self._LOCALFILE, 'r') as f:
+                d = loads(f.read())
+            port = d['port']
+            token = d['token']
+        except (IOError, KeyError):
+            item.set_property('sensitive', False)
+        else:
+            item.connect(
+                'activate',
+                self.send_items,
+                window,
+                [url2pathname(urlparse(x.get_uri()).path) for x in files],
+                port,
+                token,
+            )
+        return [item]
+
+# main
+if __name__ == '__main__':
+#get files/folder by %1
+    print("select file: %s" % sys.argv)
+    iFiles = len(sys.argv)
+    sFiles = []
+    print("files: %s" % (iFiles-1))
+    for x in range(1 , iFiles):
+        #print("%s" % sys.argv[x])
+        sFiles.append(sys.argv[x])
+        
+    print(sFiles)
+    n = NitroShareMenu()
+    n.send_files(sFiles)

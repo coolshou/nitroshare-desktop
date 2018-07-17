@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Action
+Tooltip=Send file with NitroShare
+Name=Send with NitroShare...
+Name[zh_TW]=使用 NitroShare 傳送...
+Profiles=profile-NitroShare
+Icon=nitroshare-indicator
+
+[X-Action-Profile profile-NitroShare]
+Name=Send with NitroShare
+Exec=NitroShare-send %F
+
