@@ -1,0 +1,35 @@
+nitroshare (0.3.4-2) UNRELEASED; urgency=medium
+
+  * new upstream
+  * add pcmanfm-qt menu
+
+ -- jimmy <jimmy@jimmy-alpha>  Tue, 17 Jul 2018 15:20:48 +0800
+
+nitroshare (0.3.3-1) unstable; urgency=low
+
+  * Fix bug that broke progress and status display
+  * Fix missing indicator in KDE
+  * Fix a number of DPI issues
+  * Add extension for Nemo and Caja
+  * Add French, Korean, & Spanish translations
+
+ -- Nathan Osman <nathan@quickmediasolutions.com>  Mon, 18 Jul 2016 11:44:43 -0700
+
+nitroshare (0.3.2-1) unstable; urgency=low
+
+  * Switch default transfer directory to "Downloads"
+  * Enable translations
+  * Add local HTTP API
+  * Add Nautilus extension
+  * Add ability to drop files over the transfer window
+  * Add option to automatically start after login
+  * Provide options for encrypting transfers with TLS
+  * Remove build dependency on libunity in favor of runtime detection
+
+ -- Nathan Osman <nathan@quickmediasolutions.com>  Fri, 08 Jul 2016 21:35:11 -0700
+
+nitroshare (0.3.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #811564)
+
+ -- Nathan Osman <nathan@quickmediasolutions.com>  Tue, 19 Jan 2016 13:17:21 -0800

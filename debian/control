@@ -1,0 +1,85 @@
+Source: nitroshare
+Section: net
+Priority: extra
+Maintainer: Nathan Osman <nathan@quickmediasolutions.com>
+Build-Depends: debhelper (>= 9),
+               dh-exec,
+               cmake (>= 3.2.0),
+               qtbase5-dev (>= 5.1),
+               qttools5-dev-tools,
+               qttools5-dev-tools (>= 5.5) | qttools5-dev,
+               libqt5svg5-dev,
+               libgtk2.0-dev,
+               libappindicator-dev,
+               libnotify-dev,
+               libqhttpengine-dev
+Standards-Version: 3.9.8
+Homepage: http://nitroshare.net/
+
+Package: nitroshare
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Suggests: nitroshare-nautilus
+Description: Cross-platform network file transfer application
+ NitroShare is designed to make transferring any file to any device as painless
+ as possible.
+ .
+ NitroShare uses a JSON-based protocol that is both platform and
+ architecture-neutral to transfer files as efficiently as possible. For added
+ security, transfers can be encrypted with TLS.
+ .
+ IPv4 broadcast is used for automatically discovering other devices on the local
+ network running NitroShare. This enables files and entire directories to be
+ instantly transferred to the other devices.
+ .
+ An HTTP API is provided that enables other applications running under the same
+ account to initiate transfers.
+
+Package: nitroshare-nautilus
+Architecture: all
+Depends: nitroshare (>= 0.3.1),
+         python-nautilus,
+         ${misc:Depends}
+Description: Nautilus extension for sending files with NitroShare
+ NitroShare is designed to make transferring any file to any device as painless
+ as possible.
+ .
+ This extension for Nautilus adds a "send with NitroShare" menu to files and
+ directories, simplifying the process of selecting items to transfer.
+
+Package: nitroshare-nemo
+Architecture: all
+Depends: nitroshare (>= 0.3.1),
+         python-nemo | nemo-python,
+         ${misc:Depends}
+Description: Nemo extension for sending files with NitroShare
+ NitroShare is designed to make transferring any file to any device as painless
+ as possible.
+ .
+ This extension for Nemo adds a "send with NitroShare" menu to files and
+ directories, simplifying the process of selecting items to transfer.
+
+Package: nitroshare-caja
+Architecture: all
+Depends: nitroshare (>= 0.3.1),
+         python-caja,
+         ${misc:Depends}
+Description: Caja extension for sending files with NitroShare
+ NitroShare is designed to make transferring any file to any device as painless
+ as possible.
+ .
+ This extension for Caja adds a "send with NitroShare" menu to files and
+ directories, simplifying the process of selecting items to transfer.
+
+Package: nitroshare-pcmanfm-qt
+Architecture: all
+Depends: nitroshare (>= 0.3.4),
+         python3-pyqt5 (>=5.8), pcmanfm-qt (>=0.12)
+         ${misc:Depends}
+Description: pcmanfm-qt extension for sending files with NitroShare
+ NitroShare is designed to make transferring any file to any device as painless
+ as possible.
+ .
+ This extension for pcmanfm-qt adds a "send with NitroShare" menu to files and
+ directories, simplifying the process of selecting items to transfer.
